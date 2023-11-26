@@ -1,0 +1,40 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        title Document
+        link(rel="stylesheet" href="./home.css")
+    body
+        header
+            h1 Books
+            if(user.username)
+                form(action="/books/add" method="post")
+                    label(for="title") Title:
+                    input(type="text" name="title" id="title", required)
+
+                    label(for="author") Author:
+                    input(type="text" name="author" id="author", required)
+
+                    label(for="year") Year:
+                    input(type="number" name="year" id="year", required)
+
+                    button(type="submit") Add Book
+            div.buttons
+                if(user.username)
+                    h3="welcome : "+user.username
+                    a(href="/logout") Logout
+                else
+                    a(href="/login") Login
+                    a(href="/signup")  Sign Up
+
+        main
+            .books
+                each book in books
+                    .book
+                        h4.user="Shared By: " + book.sharedBy
+                        h4.title=book.title
+                        h4.author=book.author
+                        h4.year=book.year
+                        if(user.username==book.sharedBy)
+                            a(href=`books/remove/${book._id}`)  Delete
