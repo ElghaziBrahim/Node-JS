@@ -1,0 +1,29 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        title Document
+        link(rel="stylesheet", href="/question.css")
+    body 
+        .nevbar 
+            a(href="/") home 
+        .newresponse
+            form(action="/responses/add" method="post") 
+                input(type="text" name="response" placeholder="send your response")
+                input(type="hidden" name="q_id" value=`${question._id}`)
+                button(type="submit") response
+        .question
+            h3.content=question.content 
+            h5.description=question.description
+        hr
+        .responses 
+            hr
+            each r in responses
+                .response
+                    .email=r.user_email
+                    .data=r.Date
+                    .contente=r.response
+                    
+                hr
+
